@@ -58,3 +58,14 @@ $(document).ready(function() {
 }); 
 // jquery end
 
+setTimeout(function() {
+    $('#message').fadeOut('fast');
+}, 3000);
+
+var errors = JSON.parse('{{ errors|safe }}');
+    for (var field in errors) {
+        for (var i = 0; i < errors[field].length; i++) {
+            console.log(field + ': ' + errors[field][i]);
+            // You can also display the error message in the template here
+        }
+    }

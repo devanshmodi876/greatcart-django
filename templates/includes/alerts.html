@@ -1,0 +1,33 @@
+{% if messages %}
+
+    {% for message in messages %}
+    <div id="message" class="container mt-3 ">
+        <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} role="alert">
+            <button type="button" class="close" data-dismiss="alert" ><span aria-hidden="true">&times;</span></button>
+            {%  if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} <strong> {{ message }} </strong> {% else %} {{ message }} {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+{% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ field }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<script>
+    var errors = JSON.parse('{{ errors|safe }}');
+    for (var field in errors) {
+        for (var i = 0; i < errors[field].length; i++) {
+            console.log(field + ': ' + errors[field][i]);
+            // You can also display the error message in the template here
+        }
+    }
+</script>
